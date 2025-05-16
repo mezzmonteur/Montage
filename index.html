@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MezzMonteur - Montage Vidéo Gaming & IRL</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#8A2BE2", secondary: "#6A0DAD" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+      }
+      .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+      }
+      .neon-text {
+      text-shadow: 0 0 5px #8A2BE2, 0 0 10px #8A2BE2, 0 0 15px #8A2BE2;
+      }
+      .neon-border {
+      box-shadow: 0 0 5px #8A2BE2, 0 0 10px #8A2BE2;
+      }
+      .gradient-bg {
+      background: linear-gradient(135deg, #000000, #1a0033, #000000);
+      }
+      .card {
+      backdrop-filter: blur(10px);
+      background: rgba(26, 0, 51, 0.3);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      transition: all 0.3s ease;
+      }
+      .card:hover {
+      transform: translateY(-10px);
+      border: 1px solid rgba(138, 43, 226, 0.8);
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+      }
+      .glow-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      }
+      .glow-btn:hover {
+      transform: scale(1.1);
+      }
+      .button-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease;
+      }
+      .glow-btn:before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      z-index: -1;
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      background-size: 400%;
+      border-radius: 10px;
+      animation: glowing 20s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      }
+      .glow-btn:hover:before {
+      opacity: 1;
+      }
+      @keyframes glowing {
+      0% { background-position: 0 0; }
+      50% { background-position: 400% 0; }
+      100% { background-position: 0 0; }
+      }
+      .glitch {
+      position: relative;
+      }
+      .glitch:after {
+      content: attr(data-text);
+      position: absolute;
+      left: 2px;
+      text-shadow: -1px 0 #8A2BE2;
+      top: 0;
+      color: #fff;
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
+      animation: noise-anim 2s infinite linear alternate-reverse;
+      }
+      .glitch:before {
+      content: attr(data-text);
+      position: absolute;
+      left: -2px;
+      text-shadow: 1px 0 #00fff9;
+      top: 0;
+      color: #fff;
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
+      animation: noise-anim-2 3s infinite linear alternate-reverse;
+      }
+      @keyframes noise-anim {
+      0% { clip: rect(31px, 9999px, 10px, 0); }
+      5% { clip: rect(36px, 9999px, 85px, 0); }
+      10% { clip: rect(5px, 9999px, 66px, 0); }
+      15% { clip: rect(82px, 9999px, 23px, 0); }
+      20% { clip: rect(89px, 9999px, 36px, 0); }
+      25% { clip: rect(74px, 9999px, 93px, 0); }
+      30% { clip: rect(35px, 9999px, 7px, 0); }
+      35% { clip: rect(82px, 9999px, 29px, 0); }
+      40% { clip: rect(5px, 9999px, 70px, 0); }
+      45% { clip: rect(41px, 9999px, 13px, 0); }
+      50% { clip: rect(47px, 9999px, 11px, 0); }
+      55% { clip: rect(31px, 9999px, 84px, 0); }
+      60% { clip: rect(89px, 9999px, 80px, 0); }
+      65% { clip: rect(91px, 9999px, 18px, 0); }
+      70% { clip: rect(50px, 9999px, 75px, 0); }
+      75% { clip: rect(29px, 9999px, 98px, 0); }
+      80% { clip: rect(61px, 9999px, 96px, 0); }
+      85% { clip: rect(9px, 9999px, 74px, 0); }
+      90% { clip: rect(44px, 9999px, 25px, 0); }
+      95% { clip: rect(64px, 9999px, 35px, 0); }
+      100% { clip: rect(54px, 9999px, 84px, 0); }
+      }
+      @keyframes noise-anim-2 {
+      0% { clip: rect(19px, 9999px, 91px, 0); }
+      5% { clip: rect(94px, 9999px, 75px, 0); }
+      10% { clip: rect(86px, 9999px, 31px, 0); }
+      15% { clip: rect(35px, 9999px, 23px, 0); }
+      20% { clip: rect(67px, 9999px, 38px, 0); }
+      25% { clip: rect(83px, 9999px, 5px, 0); }
+      30% { clip: rect(85px, 9999px, 74px, 0); }
+      35% { clip: rect(21px, 9999px, 35px, 0); }
+      40% { clip: rect(57px, 9999px, 57px, 0); }
+      45% { clip: rect(28px, 9999px, 25px, 0); }
+      50% { clip: rect(59px, 9999px, 72px, 0); }
+      55% { clip: rect(23px, 9999px, 94px, 0); }
+      60% { clip: rect(30px, 9999px, 70px, 0); }
+      65% { clip: rect(23px, 9999px, 31px, 0); }
+      70% { clip: rect(74px, 9999px, 69px, 0); }
+      75% { clip: rect(89px, 9999px, 23px, 0); }
+      80% { clip: rect(33px, 9999px, 41px, 0); }
+      85% { clip: rect(77px, 9999px, 90px, 0); }
+      90% { clip: rect(33px, 9999px, 54px, 0); }
+      95% { clip: rect(56px, 9999px, 83px, 0); }
+      100% { clip: rect(91px, 9999px, 21px, 0); }
+      }
+      .custom-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #8A2BE2;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      background-color: transparent;
+      }
+      .custom-checkbox:checked {
+      background-color: #8A2BE2;
+      }
+      .custom-checkbox:checked:after {
+      content: '\2714';
+      font-size: 14px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      }
+      #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      }
+      .floating {
+      animation: floating 3s ease-in-out infinite;
+      }
+      @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+      }
+      .rotate-3d {
+      animation: rotate3d 10s linear infinite;
+      }
+      @keyframes rotate3d {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+      }
+      input, textarea {
+      background-color: rgba(26, 0, 51, 0.3);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      color: white;
+      outline: none;
+      transition: all 0.3s ease;
+      }
+      input:focus, textarea:focus {
+      border-color: #8A2BE2;
+      box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+      }
+      .scanner {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #8A2BE2, transparent);
+      animation: scan 2s linear infinite;
+      }
+      @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+      }
+      .grid-bg {
+      background-image:
+      linear-gradient(rgba(138, 43, 226, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(138, 43, 226, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      }
+      #cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: rgba(138, 43, 226, 0.5);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      mix-blend-mode: difference;
+      }
+      #cursor-trail {
+      position: fixed;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, rgba(138, 43, 226, 0) 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      transition: width 0.3s, height 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cursor"></div>
+    <div id="cursor-trail"></div>
+    <div id="particles-js"></div>
+    <!-- Header -->
+    <header
+      class="fixed top-0 left-0 w-full z-50 py-4 px-6 bg-black bg-opacity-70 backdrop-blur-md"
+    >
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="#" class="text-3xl font-['Pacifico'] text-primary neon-text"
+          >! Mezz</a
+        >
+        <nav class="hidden md:flex space-x-8">
+          <a
+            href="#accueil"
+            class="font-orbitron text-white hover:text-primary transition-all duration-300 relative overflow-hidden group"
+          >
+            <span>ACCUEIL</span>
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"
+            ></span>
+          </a>
+          <a
+            href="#services"
+            class="font-orbitron text-white hover:text-primary transition-all duration-300 relative overflow-hidden group"
+          >
+            <span>SERVICES</span>
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"
+            ></span>
+          </a>
+          <a
+            href="#contact"
+            class="font-orbitron text-white hover:text-primary transition-all duration-300 relative overflow-hidden group"
+          >
+            <span>CONTACT</span>
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"
+            ></span>
+          </a>
+        </nav>
+        <button
+          class="glow-btn bg-primary text-white px-6 py-2 !rounded-button font-orbitron tracking-wider hover:bg-opacity-80 transition-all duration-300 hidden md:block whitespace-nowrap"
+        >
+          CONTACTEZ-MOI
+        </button>
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center"
+          id="mobile-menu-button"
+        >
+          <i class="ri-menu-line text-white text-2xl"></i>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="fixed inset-0 bg-black bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-8 hidden"
+      >
+        <button
+          id="close-menu"
+          class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center"
+        >
+          <i class="ri-close-line text-white text-2xl"></i>
+        </button>
+        <a
+          href="#accueil"
+          class="font-orbitron text-white text-2xl hover:text-primary transition-all duration-300"
+          >ACCUEIL</a
+        >
+        <a
+          href="#services"
+          class="font-orbitron text-white text-2xl hover:text-primary transition-all duration-300"
+          >SERVICES</a
+        >
+        <a
+          href="#contact"
+          class="font-orbitron text-white text-2xl hover:text-primary transition-all duration-300"
+          >CONTACT</a
+        >
+        <button
+          class="glow-btn bg-primary text-white px-6 py-2 !rounded-button font-orbitron tracking-wider hover:bg-opacity-80 transition-all duration-300 mt-6 whitespace-nowrap"
+        >
+          CONTACTEZ-MOI
+        </button>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section
+      id="accueil"
+      class="min-h-screen flex items-center justify-center pt-24 pb-16 px-4 gradient-bg grid-bg relative"
+    >
+      <div
+        class="container mx-auto flex flex-col lg:flex-row items-center justify-between"
+      >
+        <div class="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0">
+          <h1
+            class="text-4xl md:text-6xl font-orbitron font-bold mb-6 glitch"
+            data-text="MONTAGE VIDÉO GAMING & IRL"
+          >
+            <span class="text-white">MONTAGE VIDÉO</span><br />
+            <span class="text-primary neon-text">GAMING & IRL</span>
+          </h1>
+          <p
+            class="text-lg md:text-xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0"
+          >
+            Transformez vos moments de jeu et vos expériences IRL en contenu
+            captivant. Montage professionnel pour YouTube, Twitch, TikTok et
+            plus encore.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <button
+              onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})"
+              class="glow-btn bg-primary text-white px-8 py-3 !rounded-button font-orbitron tracking-wider hover:bg-opacity-80 transition-all duration-300 whitespace-nowrap"
+            >
+              VOIR MES SERVICES
+            </button>
+          </div>
+        </div>
+        <div class="lg:w-1/2 flex justify-center">
+          <div class="relative w-80 h-80 rotate-3d">
+            <div id="hero-3d-element" class="w-full h-full"></div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+      >
+        <div
+          class="w-8 h-12 flex items-center justify-center border-2 border-white !rounded-full"
+        >
+          <div class="w-1 h-3 bg-white rounded-full animate-ping"></div>
+        </div>
+      </div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-4 relative overflow-hidden">
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative inline-block"
+          >
+            <span class="text-primary neon-text">MES SERVICES</span>
+            <div class="h-1 w-full bg-primary mt-2"></div>
+          </h2>
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+            Des montages vidéo de qualité professionnelle avec Adobe After
+            Effects et Premiere Pro, adaptés à vos besoins gaming et IRL.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Service Card 1 -->
+          <div class="card !rounded-lg p-6 relative group">
+            <div class="scanner"></div>
+            <div
+              class="absolute -inset-0.5 bg-gradient-to-r from-primary to-purple-600 !rounded-lg blur opacity-0 group-hover:opacity-30 transition duration-500"
+            ></div>
+            <div
+              class="w-16 h-16 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <i class="ri-video-line text-primary text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-orbitron font-bold text-center mb-4">
+              VIDÉOS COMPLÈTES
+            </h3>
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Montage professionnel de vos gameplay</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Effets visuels et transitions personnalisées</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Optimisation pour YouTube et Twitch</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Montage professionnel sur mesure</span>
+              </li>
+            </ul>
+            <div class="text-center">
+              <span
+                class="text-4xl font-orbitron font-bold text-primary neon-text"
+                >10 €</span
+              >
+              <p class="text-gray-400 mt-2">par vidéo</p>
+            </div>
+            <button
+              onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})"
+              class="w-full mt-6 glow-btn bg-primary text-white px-6 py-3 !rounded-button font-orbitron tracking-wider hover:bg-opacity-80 transition-all duration-300 whitespace-nowrap"
+            >
+              COMMANDER
+            </button>
+          </div>
+          <!-- Service Card 2 -->
+          <div class="card !rounded-lg p-6 relative group floating">
+            <div class="scanner"></div>
+            <div
+              class="absolute -inset-0.5 bg-gradient-to-r from-primary to-purple-600 !rounded-lg blur opacity-0 group-hover:opacity-30 transition duration-500"
+            ></div>
+            <div
+              class="w-16 h-16 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <i class="ri-film-line text-primary text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-orbitron font-bold text-center mb-4">
+              SHORTS
+            </h3>
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Format vertical optimisé</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Montage dynamique et rythmé</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Optimisation pour YouTube Shorts</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Durée de 15 à 60 secondes</span>
+              </li>
+            </ul>
+            <div class="text-center">
+              <span
+                class="text-4xl font-orbitron font-bold text-primary neon-text"
+                >2 €</span
+              >
+              <p class="text-gray-400 mt-2">par short</p>
+            </div>
+            <button
+              onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})"
+              class="w-full mt-6 glow-btn bg-primary text-white px-6 py-3 !rounded-button font-orbitron tracking-wider hover:bg-opacity-80 transition-all duration-300 whitespace-nowrap"
+            >
+              COMMANDER
+            </button>
+          </div>
+          <!-- Service Card 3 -->
+          <div class="card !rounded-lg p-6 relative group">
+            <div class="scanner"></div>
+            <div
+              class="absolute -inset-0.5 bg-gradient-to-r from-primary to-purple-600 !rounded-lg blur opacity-0 group-hover:opacity-30 transition duration-500"
+            ></div>
+            <div
+              class="w-16 h-16 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <i class="ri-tiktok-line text-primary text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-orbitron font-bold text-center mb-4">
+              TIKTOK
+            </h3>
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Format optimisé pour TikTok</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Montage ultra-dynamique</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Tendances et effets populaires</span>
+              </li>
+              <li class="flex items-start">
+                <i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+                <span>Optimisation pour TikTok</span>
+              </li>
+            </ul>
+            <div class="text-center">
+              <span
+                class="text-4xl font-orbitron font-bold text-primary neon-text"
+                >2 €</span
+              >
+              <p class="text-gray-400 mt-2">par TikTok</p>
+            </div>
+            <button
+              onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})"
+              class="w-full mt-6 glow-btn bg-primary text-white px-6 py-3 !rounded-button font-orbitron tracking-wider hover:bg-opacity-80 transition-all duration-300 whitespace-nowrap"
+            >
+              COMMANDER
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Process Section -->
+    <section class="py-20 px-4 gradient-bg relative">
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative inline-block"
+          >
+            <span class="text-primary neon-text">MON PROCESSUS</span>
+            <div class="h-1 w-full bg-primary mt-2"></div>
+          </h2>
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+            Un processus simple et efficace pour transformer vos vidéos brutes
+            en contenu professionnel.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <!-- Step 1 -->
+          <div class="relative">
+            <div class="card p-6 !rounded-lg h-full">
+              <div
+                class="w-12 h-12 bg-primary !rounded-full flex items-center justify-center mb-4 mx-auto"
+              >
+                <span class="font-orbitron font-bold text-xl">1</span>
+              </div>
+              <h3 class="text-xl font-orbitron font-bold text-center mb-3">
+                CONTACT
+              </h3>
+              <p class="text-gray-300 text-center">
+                Contactez-moi via Discord ou email pour discuter de votre projet
+                et de vos besoins spécifiques.
+              </p>
+            </div>
+            <div
+              class="hidden md:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 w-12 h-1 bg-primary"
+            ></div>
+          </div>
+          <!-- Step 2 -->
+          <div class="relative">
+            <div class="card p-6 !rounded-lg h-full">
+              <div
+                class="w-12 h-12 bg-primary !rounded-full flex items-center justify-center mb-4 mx-auto"
+              >
+                <span class="font-orbitron font-bold text-xl">2</span>
+              </div>
+              <h3 class="text-xl font-orbitron font-bold text-center mb-3">
+                TRANSFERT
+              </h3>
+              <p class="text-gray-300 text-center">
+                Envoyez-moi vos fichiers vidéo bruts via le service de transfert
+                de votre choix.
+              </p>
+            </div>
+            <div
+              class="hidden md:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 w-12 h-1 bg-primary"
+            ></div>
+          </div>
+          <!-- Step 3 -->
+          <div class="relative">
+            <div class="card p-6 !rounded-lg h-full">
+              <div
+                class="w-12 h-12 bg-primary !rounded-full flex items-center justify-center mb-4 mx-auto"
+              >
+                <span class="font-orbitron font-bold text-xl">3</span>
+              </div>
+              <h3 class="text-xl font-orbitron font-bold text-center mb-3">
+                MONTAGE
+              </h3>
+              <p class="text-gray-300 text-center">
+                Je monte votre vidéo selon vos directives, avec un délai de
+                livraison rapide.
+              </p>
+            </div>
+            <div
+              class="hidden md:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 w-12 h-1 bg-primary"
+            ></div>
+          </div>
+          <!-- Step 4 -->
+          <div>
+            <div class="card p-6 !rounded-lg h-full">
+              <div
+                class="w-12 h-12 bg-primary !rounded-full flex items-center justify-center mb-4 mx-auto"
+              >
+                <span class="font-orbitron font-bold text-xl">4</span>
+              </div>
+              <h3 class="text-xl font-orbitron font-bold text-center mb-3">
+                LIVRAISON
+              </h3>
+              <p class="text-gray-300 text-center">
+                Après paiement, vous recevez votre vidéo finalisée prête à être
+                publiée.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 relative overflow-hidden">
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative inline-block"
+          >
+            <span class="text-primary neon-text">CONTACTEZ-MOI</span>
+            <div class="h-1 w-full bg-primary mt-2"></div>
+          </h2>
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+            Prêt à transformer vos vidéos ? Contactez-moi dès maintenant pour
+            discuter de votre projet.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- Contact Form -->
+          <div class="card !rounded-lg p-8">
+            <form id="contactForm" onsubmit="sendToDiscord(event)">
+              <div class="mb-6">
+                <label for="name" class="block text-gray-300 mb-2 font-orbitron"
+                  >NOM</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full px-4 py-3 !rounded-lg border-none"
+                  placeholder="Votre nom"
+                />
+              </div>
+              <div class="mb-6">
+                <label
+                  for="email"
+                  class="block text-gray-300 mb-2 font-orbitron"
+                  >EMAIL</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 !rounded-lg border-none"
+                  placeholder="Votre email"
+                />
+              </div>
+              <div class="mb-6">
+                <label
+                  for="service"
+                  class="block text-gray-300 mb-2 font-orbitron"
+                  >SERVICE</label
+                >
+                <div class="relative">
+                  <select
+                    id="service"
+                    name="service"
+                    required
+                    class="w-full px-4 py-3 !rounded-lg appearance-none pr-8 border-none bg-[rgba(26,0,51,0.3)]"
+                  >
+                    <option value="" disabled selected>
+                      Sélectionnez un service
+                    </option>
+                    <option value="Vidéo complète (10€)">
+                      Vidéo complète (10€)
+                    </option>
+                    <option value="Short (2€)">Short (2€)</option>
+                    <option value="TikTok (2€)">TikTok (2€)</option>
+                    <option value="Projet personnalisé">
+                      Projet personnalisé
+                    </option>
+                  </select>
+                  <div
+                    class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                  >
+                    <i class="ri-arrow-down-s-line text-primary"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-6">
+                <label
+                  for="message"
+                  class="block text-gray-300 mb-2 font-orbitron"
+                  >MESSAGE</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows="5"
+                  class="w-full px-4 py-3 !rounded-lg border-none"
+                  placeholder="Décrivez votre projet..."
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full glow-btn bg-primary text-white px-6 py-3 !rounded-button font-orbitron tracking-wider hover:bg-opacity-80 transition-all duration-300 whitespace-nowrap"
+              >
+                ENVOYER
+              </button>
+            </form>
+          </div>
+          <!-- Contact Info -->
+          <div class="flex flex-col justify-center">
+            <div class="mb-8">
+              <h3 class="text-2xl font-orbitron font-bold mb-4 text-primary">
+                COORDONNÉES
+              </h3>
+              <div class="space-y-6">
+                <div class="flex items-center">
+                  <div
+                    class="w-12 h-12 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mr-4"
+                  >
+                    <i class="ri-mail-line text-primary text-xl"></i>
+                  </div>
+                  <div>
+                    <p class="text-gray-400">Email</p>
+                    <a
+                      href="mailto:mezzmonteur@gmail.com"
+                      class="text-white hover:text-primary transition-colors"
+                      >mezzmonteur@gmail.com</a
+                    >
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div
+                    class="w-12 h-12 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mr-4"
+                  >
+                    <i class="ri-discord-line text-primary text-xl"></i>
+                  </div>
+                  <div>
+                    <p class="text-gray-400">Discord</p>
+                    <p class="text-white">mezzmonteur</p>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div
+                    class="w-12 h-12 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mr-4"
+                  >
+                    <i class="ri-paypal-fill text-primary text-xl"></i>
+                  </div>
+                  <div>
+                    <p class="text-gray-400">Paiement</p>
+                    <p class="text-white">Virement par PayPal</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-orbitron font-bold mb-4 text-primary">
+                DISPONIBILITÉ
+              </h3>
+              <p class="text-gray-300 mb-4">
+                Je réponds généralement dans les 24 heures suivant votre
+                message. Les délais de livraison peuvent être plus courts selon
+                ma disponibilité :
+              </p>
+              <ul class="space-y-2">
+                <li class="flex items-start">
+                  <i class="ri-time-line text-primary mr-2 mt-1"></i>
+                  <span
+                    >Vidéos complètes : 2-3 jours (possibilité plus rapide selon
+                    disponibilité)</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <i class="ri-time-line text-primary mr-2 mt-1"></i>
+                  <span
+                    >Shorts : 24-48 heures (possibilité plus rapide selon
+                    disponibilité)</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <i class="ri-time-line text-primary mr-2 mt-1"></i>
+                  <span
+                    >TikTok : 24 heures (possibilité plus rapide selon
+                    disponibilité)</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="py-12 px-4 relative overflow-hidden">
+      <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <!-- About -->
+          <div>
+            <h3 class="text-xl font-orbitron font-bold mb-4 text-primary">
+              À PROPOS
+            </h3>
+            <p class="text-gray-300 mb-4">
+              Monteur vidéo spécialisé dans le contenu gaming et IRL. Je
+              transforme vos moments de jeu en vidéos captivantes et
+              professionnelles.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="https://www.youtube.com/@mezzmonteur"
+                class="w-10 h-10 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all"
+              >
+                <i class="ri-youtube-line text-primary"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Links -->
+          <div>
+            <h3 class="text-xl font-orbitron font-bold mb-4 text-primary">
+              LIENS RAPIDES
+            </h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#accueil"
+                  class="text-gray-300 hover:text-primary transition-colors flex items-center"
+                >
+                  <i class="ri-arrow-right-s-line mr-2"></i>
+                  Accueil
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-gray-300 hover:text-primary transition-colors flex items-center"
+                >
+                  <i class="ri-arrow-right-s-line mr-2"></i>
+                  Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-gray-300 hover:text-primary transition-colors flex items-center"
+                >
+                  <i class="ri-arrow-right-s-line mr-2"></i>
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-primary transition-colors flex items-center"
+                >
+                  <i class="ri-arrow-right-s-line mr-2"></i>
+                  Portfolio
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center"
+        >
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            © 2025 MezzMonteur. Tous droits réservés.
+          </p>
+          <div class="flex items-center space-x-4">
+            <span class="text-gray-400 text-sm">Paiement sécurisé via</span>
+            <i class="ri-paypal-fill text-2xl text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".glow-btn");
+        buttons.forEach((button) => {
+          button.addEventListener("mousemove", (e) => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const angleX = (y - centerY) / 10;
+            const angleY = (centerX - x) / 10;
+
+            button.style.transform = `scale(1.1) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+          });
+
+          button.addEventListener("mouseleave", () => {
+            button.style.transform = "scale(1) rotateX(0) rotateY(0)";
+          });
+        });
+        const contactForm = document.getElementById("contactForm");
+        contactForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const webhookUrl =
+            "https://discord.com/api/webhooks/1372936528074113154/QWwvNI7anw_Zfr24ZPFdDxgDxgadj3H_9hSJRjcl-MADOaX7D-PjbhkLxKGr945Mr2iQ";
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const service = document.getElementById("service").value;
+          const message = document.getElementById("message").value;
+          const data = {
+            embeds: [
+              {
+                title: "Nouvelle demande de contact",
+                color: 0x8a2be2,
+                fields: [
+                  {
+                    name: "Nom",
+                    value: name,
+                    inline: true,
+                  },
+                  {
+                    name: "Email",
+                    value: email,
+                    inline: true,
+                  },
+                  {
+                    name: "Service",
+                    value: service,
+                    inline: false,
+                  },
+                  {
+                    name: "Message",
+                    value: message,
+                    inline: false,
+                  },
+                ],
+                timestamp: new Date().toISOString(),
+              },
+            ],
+          };
+          fetch(webhookUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => {
+              if (response.ok) {
+                contactForm.reset();
+                const modal = document.createElement("div");
+                modal.className =
+                  "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+                modal.innerHTML = `
+        <div class="bg-[#1a1a1a] p-8 rounded-lg shadow-xl transform transition-all max-w-md w-full mx-4">
+          <div class="text-center">
+            <div class="w-20 h-20 mx-auto mb-4 text-primary">
+              <i class="ri-checkbox-circle-line text-6xl"></i>
+            </div>
+            <h3 class="text-2xl font-orbitron font-bold text-white mb-2">Merci de votre commande</h3>
+            <p class="text-gray-300">Votre commande a été prise en charge, vous serez recontacté bientôt.</p>
+            <button class="mt-6 glow-btn bg-primary text-white px-6 py-2 !rounded-button font-orbitron" onclick="this.closest('.fixed').remove()">
+              Fermer
+            </button>
+          </div>
+        </div>
+      `;
+                document.body.appendChild(modal);
+              } else {
+                throw new Error("Erreur réseau");
+              }
+            })
+            .catch((error) => {
+              const errorMessage = document.createElement("div");
+              errorMessage.className =
+                "fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg";
+              errorMessage.textContent =
+                "Erreur lors de l'envoi du message. Veuillez réessayer.";
+              document.body.appendChild(errorMessage);
+              setTimeout(() => errorMessage.remove(), 3000);
+            });
+        });
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const closeMenuButton = document.getElementById("close-menu");
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenuButton.addEventListener("click", function () {
+          mobileMenu.classList.remove("hidden");
+        });
+        closeMenuButton.addEventListener("click", function () {
+          mobileMenu.classList.add("hidden");
+        });
+        // Mobile menu links
+        const mobileMenuLinks = mobileMenu.querySelectorAll("a");
+        mobileMenuLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        // FAQ toggles
+        const faqToggles = document.querySelectorAll(".faq-toggle");
+        faqToggles.forEach((toggle) => {
+          toggle.addEventListener("click", function () {
+            const targetId = this.getAttribute("data-target");
+            const content = document.getElementById(targetId);
+            const icon = this.querySelector("i");
+            // Close all other FAQs
+            document.querySelectorAll(".faq-content").forEach((item) => {
+              if (item.id !== targetId) {
+                item.classList.add("hidden");
+                const otherToggle = document.querySelector(
+                  `[data-target="${item.id}"]`,
+                );
+                otherToggle
+                  .querySelector("i")
+                  .classList.remove("transform", "rotate-45");
+              }
+            });
+            // Toggle current FAQ
+            content.classList.toggle("hidden");
+            icon.classList.toggle("transform");
+            icon.classList.toggle("rotate-45");
+          });
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        // Particles.js
+        particlesJS("particles-js", {
+          particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: "#8A2BE2" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#8A2BE2",
+              opacity: 0.2,
+              width: 1,
+            },
+            move: {
+              enable: true,
+              speed: 2,
+              direction: "none",
+              random: true,
+              straight: false,
+              out_mode: "out",
+              bounce: false,
+            },
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: { enable: true, mode: "grab" },
+              onclick: { enable: true, mode: "push" },
+              resize: true,
+            },
+            modes: {
+              grab: { distance: 140, line_linked: { opacity: 0.8 } },
+              push: { particles_nb: 4 },
+            },
+          },
+          retina_detect: true,
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        // Custom cursor
+        const cursor = document.getElementById("cursor");
+        const cursorTrail = document.getElementById("cursor-trail");
+        document.addEventListener("mousemove", function (e) {
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+          setTimeout(function () {
+            cursorTrail.style.left = e.clientX + "px";
+            cursorTrail.style.top = e.clientY + "px";
+          }, 100);
+        });
+        // Hover effect on interactive elements
+        const interactiveElements = document.querySelectorAll(
+          "a, button, .card, .faq-toggle",
+        );
+        interactiveElements.forEach((element) => {
+          element.addEventListener("mouseenter", function () {
+            cursor.style.transform = "translate(-50%, -50%) scale(1.5)";
+            cursor.style.backgroundColor = "rgba(138, 43, 226, 0.8)";
+            cursorTrail.style.width = "150px";
+            cursorTrail.style.height = "150px";
+          });
+          element.addEventListener("mouseleave", function () {
+            cursor.style.transform = "translate(-50%, -50%) scale(1)";
+            cursor.style.backgroundColor = "rgba(138, 43, 226, 0.5)";
+            cursorTrail.style.width = "100px";
+            cursorTrail.style.height = "100px";
+          });
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        // 3D Element in Hero Section
+        const container = document.getElementById("hero-3d-element");
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+          75,
+          container.clientWidth / container.clientHeight,
+          0.1,
+          1000,
+        );
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+        // Create a torus knot
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.MeshBasicMaterial({
+          color: 0x8a2be2,
+          wireframe: true,
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+        camera.position.z = 30;
+        // Animation
+        function animate() {
+          requestAnimationFrame(animate);
+          torusKnot.rotation.x += 0.01;
+          torusKnot.rotation.y += 0.01;
+          renderer.render(scene, camera);
+        }
+        animate();
+        // Handle resize
+        window.addEventListener("resize", function () {
+          camera.aspect = container.clientWidth / container.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+      });
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 100,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
